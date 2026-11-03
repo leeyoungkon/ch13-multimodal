@@ -7,8 +7,8 @@ ENV PYTHONUNBUFFERED=1 PYTHONDONTWRITEBYTECODE=1 \
 RUN apt-get update && apt-get install -y --no-install-recommends ffmpeg fonts-dejavu-core ca-certificates \
     && rm -rf /var/lib/apt/lists/*   
 WORKDIR /app
-COPY requirements.txt ./
-RUN python -m pip install --no-cache-dir -r requirements.txt
+COPY requirements.txt ./   
+RUN python -m pip install --no-cache-dir -r requirements.txt 
 # Validate imports during build. No model weights or GPU are required here.
 RUN python -c "import torch; from diffusers import WanPipeline, AutoencoderKLWan; from transformers import UMT5EncoderModel; print(torch.__version__)"
 COPY app.py engine.py cli.py index.html sample_script.txt example_storyboard.json ./
